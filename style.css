@@ -1,0 +1,135 @@
+body {
+  margin: 0;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  min-height: 100vh;
+  color: white;
+}
+
+#gameContainer {
+  width: 400px;
+  height: 600px;
+  position: relative;
+  overflow: hidden;
+  margin: 20px auto;
+  background: radial-gradient(circle at center, #000000 0%, #00111a 100%);
+  border: 2px solid #00f7ff;
+  box-shadow: 0 0 30px rgba(0, 247, 255, 0.3);
+}
+
+#player {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 180px;
+  bottom: 50px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%2300f7ff" d="M256 0L0 512h512L256 0z"/></svg>');
+  background-size: contain;
+  transition: transform 0.1s;
+}
+
+.obstacle {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23707070" d="M403.8 34.4c12-5 25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6V160H352c-10.1 0-19.6 4.7-25.6 12.8L284 229.3 244 176l31.2-41.6C287.3 121.7 304 105 304 80V0h80c13.3 0 24 10.7 24 24V64.8c0-12.9 7.8-24.6 19.8-29.6zM164 282.7L204 336l-31.2 41.6C161.3 390.3 144 407 144 432v80H64c-13.3 0-24-10.7-24-24V447.2c0-12.9-7.8-24.6-19.8-29.6s-25.7-2.2-34.9 6.9l-64 64C-3.4 463.4 0 471.5 0 480s3.4 16.6 9.4 22.6l64 64c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V448h32c10.1 0 19.6-4.7 25.6-12.8L228 394.7 268 448l-31.2 41.6C224.7 502.3 208 519 208 544v80h80c13.3 0 24-10.7 24-24V512c0-27.6 11.7-52.6 30.4-70.3L409.9 408l58.6 58.6c18.7 18.7 43.7 30.4 70.3 30.4h48c13.3 0 24-10.7 24-24s-10.7-24-24-24H544c-8.5 0-16.6-3.4-22.6-9.4l-96-96c-6-6-9.4-14.1-9.4-22.6s3.4-16.6 9.4-22.6l96-96c6-6 14.1-9.4 22.6-9.4h48c13.3 0 24-10.7 24-24s-10.7-24-24-24H544c-26.5 0-51.6 10.5-70.3 29.2L415.2 280l-26.4-26.4c-18.7-18.7-43.8-29.2-70.3-29.2H288V64c0-35.3-28.7-64-64-64H160C124.7 0 96 28.7 96 64v88c0 22.1 17.9 40 40 40h76.4l-48 90.7z"/></svg>');
+  background-size: cover;
+  animation: meteorGlow 2s infinite;
+}
+
+.laser {
+  width: 3px;
+  height: 20px;
+  background: #00f7ff;
+  position: absolute;
+  box-shadow: 0 0 10px #00f7ff;
+  border-radius: 2px;
+}
+
+.explosion {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  background: rgba(255, 69, 0, 0.7);
+  border-radius: 50%;
+  animation: explode 0.4s linear forwards;
+}
+
+@keyframes meteorGlow {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.5); }
+  100% { filter: brightness(1); }
+}
+
+@keyframes explode {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+#score {
+  font-size: 32px;
+  color: #00f7ff;
+  text-shadow: 0 0 10px #00f7ff;
+  margin: 20px 0;
+}
+
+.game-btn {
+  padding: 12px 25px;
+  font-size: 16px;
+  background: #00222d;
+  border: 2px solid #00f7ff;
+  color: #00f7ff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: 10px;
+  position: absolute;
+  top: 350px;
+}
+
+.game-btn:hover {
+  background: #00f7ff;
+  color: #000;
+  box-shadow: 0 0 15px #00f7ff;
+}
+
+#rules {
+  font-size: 16px;
+  text-align: left;
+  margin-top: 20px;
+  line-height: 1.5em;
+  max-width: 250px;
+  position: fixed;
+  left: 20px;
+  top: 120px;
+}
+
+#gameContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(#fff, transparent 1px),
+              radial-gradient(#fff, transparent 1px),
+              radial-gradient(rgba(204, 204, 204, 0.2), transparent 1px),
+              radial-gradient(rgba(153, 153, 153, 0.1), transparent 1px),
+              radial-gradient(rgba(102, 102, 102, 0.1), transparent 1px),
+              rgb(0, 0, 0);
+  background-position: 0 0, 10px 10px, 0 20px, 10px 30px, 0 40px, 0 0;
+  background-size: 40px 40px;
+  animation: stars 10s linear infinite;
+}
+
+@keyframes stars {
+  from {
+      background-position: 0 0, 10px 10px, 0 20px, 10px 30px, 0 40px, 0 0;
+  }
+  to {
+      background-position: 40px 40px, 50px 50px, 40px 60px, 50px 70px, 40px 80px, 0 0;
+  }
+}
